@@ -115,7 +115,7 @@ class MainViewController: UIViewController {
         
         if let sheet = settingsVC.sheetPresentationController {
             sheet.detents = [.medium()]
-            sheet.preferredCornerRadius = 20
+            sheet.preferredCornerRadius = 21
         }
         
         present(settingsVC, animated: true)
