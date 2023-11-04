@@ -17,7 +17,6 @@
 		110134742AF0329C00F72559 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110134732AF0329C00F72559 /* SettingsViewController.swift */; };
 		110134782AF1049100F72559 /* ColorCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110134772AF1049100F72559 /* ColorCollectionView.swift */; };
 		1101347B2AF1054300F72559 /* ColorsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1101347A2AF1054300F72559 /* ColorsCollectionViewCell.swift */; };
-		110134A12AF683C100F72559 /* ColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110134A02AF683C100F72559 /* ColorPickerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +32,6 @@
 		110134732AF0329C00F72559 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		110134772AF1049100F72559 /* ColorCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCollectionView.swift; sourceTree = "<group>"; };
 		1101347A2AF1054300F72559 /* ColorsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsCollectionViewCell.swift; sourceTree = "<group>"; };
-		110134A02AF683C100F72559 /* ColorPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +98,6 @@
 			children = (
 				110134732AF0329C00F72559 /* SettingsViewController.swift */,
 				1101345D2AEF0CFA00F72559 /* MainViewController.swift */,
-				110134A02AF683C100F72559 /* ColorPickerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -194,7 +191,6 @@
 			files = (
 				1101345E2AEF0CFA00F72559 /* MainViewController.swift in Sources */,
 				1101346F2AEF0E9000F72559 /* Colors.swift in Sources */,
-				110134A12AF683C100F72559 /* ColorPickerViewController.swift in Sources */,
 				1101347B2AF1054300F72559 /* ColorsCollectionViewCell.swift in Sources */,
 				1101345A2AEF0CFA00F72559 /* AppDelegate.swift in Sources */,
 				110134782AF1049100F72559 /* ColorCollectionView.swift in Sources */,
