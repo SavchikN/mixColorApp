@@ -123,7 +123,7 @@ class SettingsViewController: UIViewController, UIColorPickerViewControllerDeleg
     
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
         selectedColorView?.backgroundColor = viewController.selectedColor
-        print("hello world")
+        print("hello hei world")
     }
     
     @objc func showColorPicker(_ gesture: UITapGestureRecognizer) {
