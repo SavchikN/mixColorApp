@@ -9,7 +9,12 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    private let firstColorLabel: UILabel = {
+    var blurEffectView: UIVisualEffectView?
+    
+    var firstColor = UIColor.systemPurple
+    var secondColor = UIColor.systemBlue
+    
+    let firstColorLabel: UILabel = {
         let label = UILabel()
         label.text = "First color:"
         label.font = .rounded(ofSize: 30, weight: .medium)
@@ -29,7 +34,7 @@ class MainViewController: UIViewController {
     
     private let plusLabel: UILabel = {
         let label = UILabel()
-        label.text = "+"
+//        label.text = "+"
         label.font = .rounded(ofSize: 30, weight: .medium)
         label.textAlignment = .center
         label.textColor = .white
@@ -43,22 +48,27 @@ class MainViewController: UIViewController {
         button.setTitleColor(.systemBlue, for: .normal)
         button.titleLabel?.font = .rounded(ofSize: 25, weight: .regular)
         button.backgroundColor = .white
-//        button.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-//        button.layer.borderWidth = 1
         button.layer.cornerRadius = 15
+        button.addTarget(self, action: #selector(mixButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
-    var blurEffectView: UIVisualEffectView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
             
         setupUI()
+        setupLabelText()
         setupNavBar()
+        setupGradientLayer(firstColor, secondColor)
         setupBlurEffect()
         setConstraints()
+    }
+    
+    func removeBlurEffect() {
+        print("method was called")
+        blurEffectView?.alpha = 0.0
+        navigationController?.navigationBar.isHidden = false
     }
     
     private func setupUI() {
@@ -69,7 +79,6 @@ class MainViewController: UIViewController {
             plusLabel,
             mixButton
         )
-        setupGradientLayer()
     }
     
     private func setupNavBar() {
@@ -84,6 +93,12 @@ class MainViewController: UIViewController {
         settingsButton.tintColor = .black
         settingsButton.addTarget(self, action: #selector(showSettingsVC), for: .touchUpInside)
         return settingsButton
+    }
+    
+    private func setupLabelText() {
+        firstColorLabel.text = firstColor.accessibilityName
+        secondColorLabel.text = secondColor.accessibilityName
+        plusLabel.text = "+"
     }
     
     private func setupSubviews(_ subview: UIView...) {
@@ -102,38 +117,55 @@ class MainViewController: UIViewController {
         view.addSubview(blurEffectView)
     }
     
-    func removeBlurEffect() {
-        print("method was called")
-        blurEffectView?.alpha = 0.0
-        navigationController?.navigationBar.isHidden = false
+    private func setupGradientLayer(_ firstColor: UIColor, _ secondColor: UIColor) {
+        if let gradientLayer = view.layer.sublayers?.first as? CAGradientLayer {
+            gradientLayer.removeFromSuperlayer()
+        }
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = view.bounds
+        
+        let first = firstColor.cgColor
+        let second = secondColor.cgColor
+        
+        gradientLayer.colors = [first, second]
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
+        
+        view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
-    @objc func showSettingsVC() {
-        let settingsVC = SettingsViewController()
-        settingsVC.delegate = self
-        settingsVC.isModalInPresentation = true
-        
-        if let sheet = settingsVC.sheetPresentationController {
-            sheet.detents = [.medium()]
-            sheet.preferredCornerRadius = 21
-        }
-        
-        present(settingsVC, animated: true)
-        
-        UIView.animate(withDuration: 0.3) {
-            self.navigationController?.navigationBar.isHidden = true
-            self.blurEffectView?.alpha = 1.0
-        }
-    }
-}
+    private func mixColors(color1: UIColor, color2: UIColor, weight: CGFloat) -> UIColor {
+        var red1: CGFloat = 0
+        var green1: CGFloat = 0
+        var blue1: CGFloat = 0
+        var alpha1: CGFloat = 0
 
-extension MainViewController {
+        color1.getRed(&red1, green: &green1, blue: &blue1, alpha: &alpha1)
+
+        var red2: CGFloat = 0
+        var green2: CGFloat = 0
+        var blue2: CGFloat = 0
+        var alpha2: CGFloat = 0
+
+        color2.getRed(&red2, green: &green2, blue: &blue2, alpha: &alpha2)
+
+        let red = (red1 * (1 - weight)) + (red2 * weight)
+        let green = (green1 * (1 - weight)) + (green2 * weight)
+        let blue = (blue1 * (1 - weight)) + (blue2 * weight)
+        let alpha = (alpha1 * (1 - weight)) + (alpha2 * weight)
+
+        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
+    }
+    
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            firstColorLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            firstColorLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 120),
             firstColorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            plusLabel.topAnchor.constraint(equalTo: firstColorLabel.bottomAnchor, constant: 80),
+//            plusLabel.topAnchor.constraint(equalTo: firstColorLabel.bottomAnchor, constant: 80),
+            plusLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            plusLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             plusLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             plusLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             
@@ -148,23 +180,53 @@ extension MainViewController {
 }
 
 extension MainViewController {
-    private func setupGradientLayer() {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = view.bounds
+    @objc func showSettingsVC() {
+        let settingsVC = SettingsViewController()
+        settingsVC.delegate = self
+        settingsVC.isModalInPresentation = true
+        settingsVC.firstColor = firstColor
+        settingsVC.secondColor = secondColor
         
-        let firstColor = UIColor.systemPurple.cgColor
-        let secondColor = UIColor.systemBlue.cgColor
+        if let sheet = settingsVC.sheetPresentationController {
+            sheet.detents = [.medium()]
+            sheet.preferredCornerRadius = 21
+        }
         
-        gradientLayer.colors = [firstColor, secondColor]
-        gradientLayer.startPoint = CGPoint(x: 0.6, y: 0.4)
-        gradientLayer.endPoint = CGPoint(x: 0.6, y: 1)
+        present(settingsVC, animated: true)
         
-        view.layer.insertSublayer(gradientLayer, at: 0)
+        UIView.animate(withDuration: 0.3) {
+            self.navigationController?.navigationBar.isHidden = true
+            self.blurEffectView?.alpha = 1.0
+        }
+    }
+    
+    @objc func mixButtonTapped() {
+//        showAlert(title: "Your color:", message: secondColor.accessibilityName)
+        firstColorLabel.text = ""
+        secondColorLabel.text = ""
+        plusLabel.text = mixColors(color1: firstColor, color2: secondColor, weight: 0.5).accessibilityName
     }
 }
 
 extension MainViewController: SettingsViewControllerDelegate {
-    func settingsVCDidDismiss() {
+    func settingsVCDidDismiss(_ firstColor: UIColor, _ secondColor: UIColor) {
         removeBlurEffect()
+        self.firstColor = firstColor
+        self.secondColor = secondColor
+        setupLabelText()
+        setupGradientLayer(firstColor, secondColor)
     }
 }
+
+extension MainViewController {
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default) { _ in
+            self.setupGradientLayer(self.firstColor, self.secondColor)
+        }
+        
+        alert.addAction(okAction)
+        present(alert, animated: true)
+    }
+}
+

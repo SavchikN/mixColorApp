@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SettingsViewControllerDelegate: AnyObject {
-    func settingsVCDidDismiss()
+    func settingsVCDidDismiss(_ firstColor: UIColor, _ secondColor: UIColor)
 }
 
 class SettingsViewController: UIViewController, UIColorPickerViewControllerDelegate {
@@ -45,7 +45,7 @@ class SettingsViewController: UIViewController, UIColorPickerViewControllerDeleg
     
     private let firstColorView: UIView = {
         let view = UIView()
-        view.backgroundColor = .purple
+//        view.backgroundColor = .purple
         view.layer.cornerRadius = 20
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.black.cgColor
@@ -55,7 +55,7 @@ class SettingsViewController: UIViewController, UIColorPickerViewControllerDeleg
     
     private let secondColorView: UIView = {
         let view = UIView()
-        view.backgroundColor = .blue
+//        view.backgroundColor = .blue
         view.layer.cornerRadius = 20
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.black.cgColor
@@ -90,6 +90,9 @@ class SettingsViewController: UIViewController, UIColorPickerViewControllerDeleg
         return colorPicker
     }()
     
+    var firstColor: UIColor?
+    var secondColor: UIColor?
+    
     var selectedColorView: UIView?
     weak var delegate: SettingsViewControllerDelegate?
 
@@ -104,56 +107,50 @@ class SettingsViewController: UIViewController, UIColorPickerViewControllerDeleg
     
     private func setupUI() {
         view.backgroundColor = .white
-        view.addSubview(titleLabel)
-        view.addSubview(firstColorView)
-        view.addSubview(secondColorView)
-        view.addSubview(firstColorLabel)
-        view.addSubview(secondColorLabel)
-        view.addSubview(saveButton)
-        view.addSubview(cancelButton)
+        setupSubviews(
+            titleLabel,
+            firstColorView,
+            secondColorView,
+            firstColorLabel,
+            secondColorLabel,
+            saveButton,
+            cancelButton
+        )
+        firstColorView.backgroundColor = firstColor
+        secondColorView.backgroundColor = secondColor
     }
     
     private func returnToMainVC() {
         UIView.animate(withDuration: 0.3, animations: {
             self.dismiss(animated: true)
         }) { _ in
-            self.delegate?.settingsVCDidDismiss()
+            self.delegate?.settingsVCDidDismiss(self.firstColor ?? .white, self.secondColor ?? .white)
         }
     }
     
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
         selectedColorView?.backgroundColor = viewController.selectedColor
-        print("hello hei world")
-    }
-    
-    @objc func showColorPicker(_ gesture: UITapGestureRecognizer) {
-        if let sheet = colorPicker.sheetPresentationController {
-            sheet.detents = [.custom { context in
-                let customOffset: CGFloat = 150
-                let mediumHeight = context.maximumDetentValue * 0.5
-                return mediumHeight + customOffset
-            }]
-            sheet.preferredCornerRadius = 20
+        if selectedColorView?.backgroundColor == firstColorView.backgroundColor {
+            firstColor = firstColorView.backgroundColor
+        } else if selectedColorView?.backgroundColor == secondColorView.backgroundColor {
+            secondColor = secondColorView.backgroundColor
         }
         
-        if let colorView = gesture.view {
-            selectedColorView = colorView
-            colorPicker.delegate = self
-            present(colorPicker, animated: true)
-        }
+        print(firstColor?.accessibilityName ?? "1")
+        print(secondColor?.accessibilityName ?? "2")
+//        print(selectedColorView?.backgroundColor?.accessibilityName ?? "huj")
     }
-    
-    @objc func saveButtonTapped() {
-        returnToMainVC()
-    }
-    
-    @objc func cancelButtonTapped() {
-        returnToMainVC()
-    }
+
     
     private func addTapGesture(_ view: UIView) {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showColorPicker))
         view.addGestureRecognizer(tapGesture)
+    }
+    
+    private func setupSubviews(_ subview: UIView...) {
+        subview.forEach { subview in
+            view.addSubview(subview)
+        }
     }
     
     private func setConstraints() {
@@ -190,5 +187,32 @@ class SettingsViewController: UIViewController, UIColorPickerViewControllerDeleg
             saveButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             saveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
+    }
+}
+
+extension SettingsViewController {
+    @objc func saveButtonTapped() {
+        returnToMainVC()
+    }
+    
+    @objc func cancelButtonTapped() {
+        returnToMainVC()
+    }
+    
+    @objc func showColorPicker(_ gesture: UITapGestureRecognizer) {
+        if let sheet = colorPicker.sheetPresentationController {
+            sheet.detents = [.custom { context in
+                let customOffset: CGFloat = 150
+                let mediumHeight = context.maximumDetentValue * 0.5
+                return mediumHeight + customOffset
+            }]
+            sheet.preferredCornerRadius = 20
+        }
+        
+        if let colorView = gesture.view {
+            selectedColorView = colorView
+            colorPicker.delegate = self
+            present(colorPicker, animated: true)
+        }
     }
 }

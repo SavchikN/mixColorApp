@@ -15,8 +15,6 @@
 		1101346F2AEF0E9000F72559 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1101346E2AEF0E9000F72559 /* Colors.swift */; };
 		110134712AEF111C00F72559 /* UIFont + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110134702AEF111C00F72559 /* UIFont + ext.swift */; };
 		110134742AF0329C00F72559 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110134732AF0329C00F72559 /* SettingsViewController.swift */; };
-		110134782AF1049100F72559 /* ColorCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110134772AF1049100F72559 /* ColorCollectionView.swift */; };
-		1101347B2AF1054300F72559 /* ColorsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1101347A2AF1054300F72559 /* ColorsCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,8 +28,6 @@
 		1101346E2AEF0E9000F72559 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		110134702AEF111C00F72559 /* UIFont + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont + ext.swift"; sourceTree = "<group>"; };
 		110134732AF0329C00F72559 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		110134772AF1049100F72559 /* ColorCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCollectionView.swift; sourceTree = "<group>"; };
-		1101347A2AF1054300F72559 /* ColorsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +60,6 @@
 		110134582AEF0CFA00F72559 /* mixColorApp */ = {
 			isa = PBXGroup;
 			children = (
-				110134762AF1047D00F72559 /* Views */,
 				1101346D2AEF0E8200F72559 /* Models */,
 				110134592AEF0CFA00F72559 /* AppDelegate.swift */,
 				1101345B2AEF0CFA00F72559 /* SceneDelegate.swift */,
@@ -100,23 +95,6 @@
 				1101345D2AEF0CFA00F72559 /* MainViewController.swift */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		110134762AF1047D00F72559 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				110134792AF1053000F72559 /* Cells */,
-				110134772AF1049100F72559 /* ColorCollectionView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		110134792AF1053000F72559 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				1101347A2AF1054300F72559 /* ColorsCollectionViewCell.swift */,
-			);
-			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,9 +169,7 @@
 			files = (
 				1101345E2AEF0CFA00F72559 /* MainViewController.swift in Sources */,
 				1101346F2AEF0E9000F72559 /* Colors.swift in Sources */,
-				1101347B2AF1054300F72559 /* ColorsCollectionViewCell.swift in Sources */,
 				1101345A2AEF0CFA00F72559 /* AppDelegate.swift in Sources */,
-				110134782AF1049100F72559 /* ColorCollectionView.swift in Sources */,
 				110134712AEF111C00F72559 /* UIFont + ext.swift in Sources */,
 				1101345C2AEF0CFA00F72559 /* SceneDelegate.swift in Sources */,
 				110134742AF0329C00F72559 /* SettingsViewController.swift in Sources */,
