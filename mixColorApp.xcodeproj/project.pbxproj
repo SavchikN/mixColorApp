@@ -12,9 +12,9 @@
 		1101345E2AEF0CFA00F72559 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1101345D2AEF0CFA00F72559 /* MainViewController.swift */; };
 		110134632AEF0CFB00F72559 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110134622AEF0CFB00F72559 /* Assets.xcassets */; };
 		110134662AEF0CFB00F72559 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 110134642AEF0CFB00F72559 /* LaunchScreen.storyboard */; };
-		1101346F2AEF0E9000F72559 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1101346E2AEF0E9000F72559 /* Colors.swift */; };
 		110134712AEF111C00F72559 /* UIFont + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110134702AEF111C00F72559 /* UIFont + ext.swift */; };
 		110134742AF0329C00F72559 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110134732AF0329C00F72559 /* SettingsViewController.swift */; };
+		118C3CC82AF8CDA200A5E41D /* ColorInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118C3CC72AF8CDA200A5E41D /* ColorInfoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,9 +25,9 @@
 		110134622AEF0CFB00F72559 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		110134652AEF0CFB00F72559 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		110134672AEF0CFB00F72559 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1101346E2AEF0E9000F72559 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		110134702AEF111C00F72559 /* UIFont + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont + ext.swift"; sourceTree = "<group>"; };
 		110134732AF0329C00F72559 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		118C3CC72AF8CDA200A5E41D /* ColorInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorInfoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +68,7 @@
 				110134622AEF0CFB00F72559 /* Assets.xcassets */,
 				110134642AEF0CFB00F72559 /* LaunchScreen.storyboard */,
 				110134672AEF0CFB00F72559 /* Info.plist */,
+				118C3CC72AF8CDA200A5E41D /* ColorInfoView.swift */,
 			);
 			path = mixColorApp;
 			sourceTree = "<group>";
@@ -75,7 +76,6 @@
 		1101346D2AEF0E8200F72559 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				1101346E2AEF0E9000F72559 /* Colors.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -168,8 +168,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1101345E2AEF0CFA00F72559 /* MainViewController.swift in Sources */,
-				1101346F2AEF0E9000F72559 /* Colors.swift in Sources */,
 				1101345A2AEF0CFA00F72559 /* AppDelegate.swift in Sources */,
+				118C3CC82AF8CDA200A5E41D /* ColorInfoView.swift in Sources */,
 				110134712AEF111C00F72559 /* UIFont + ext.swift in Sources */,
 				1101345C2AEF0CFA00F72559 /* SceneDelegate.swift in Sources */,
 				110134742AF0329C00F72559 /* SettingsViewController.swift in Sources */,

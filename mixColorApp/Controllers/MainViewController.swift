@@ -34,12 +34,21 @@ class MainViewController: UIViewController {
     
     private let plusLabel: UILabel = {
         let label = UILabel()
-//        label.text = "+"
         label.font = .rounded(ofSize: 30, weight: .medium)
         label.textAlignment = .center
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    lazy var infoButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "info.circle.fill"), for: .normal)
+        button.tintColor = .black
+        button.isHidden = true
+        button.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     lazy var mixButton: UIButton = {
@@ -69,6 +78,7 @@ class MainViewController: UIViewController {
         print("method was called")
         blurEffectView?.alpha = 0.0
         navigationController?.navigationBar.isHidden = false
+        infoButton.isHidden = true
     }
     
     private func setupUI() {
@@ -77,7 +87,8 @@ class MainViewController: UIViewController {
             firstColorLabel,
             secondColorLabel,
             plusLabel,
-            mixButton
+            mixButton,
+            infoButton
         )
     }
     
@@ -163,11 +174,13 @@ class MainViewController: UIViewController {
             firstColorLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 120),
             firstColorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-//            plusLabel.topAnchor.constraint(equalTo: firstColorLabel.bottomAnchor, constant: 80),
             plusLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             plusLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            plusLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            plusLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            
+            infoButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -7),
+            infoButton.leadingAnchor.constraint(equalTo: plusLabel.trailingAnchor, constant: 3),
+            infoButton.heightAnchor.constraint(equalToConstant: 20),
+            infoButton.widthAnchor.constraint(equalToConstant: 20),
             
             secondColorLabel.topAnchor.constraint(equalTo: plusLabel.bottomAnchor, constant: 90),
             secondColorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -201,10 +214,23 @@ extension MainViewController {
     }
     
     @objc func mixButtonTapped() {
-//        showAlert(title: "Your color:", message: secondColor.accessibilityName)
         firstColorLabel.text = ""
         secondColorLabel.text = ""
         plusLabel.text = mixColors(color1: firstColor, color2: secondColor, weight: 0.5).accessibilityName
+        infoButton.isHidden = false
+    }
+    
+    @objc func infoButtonTapped() {
+        let colorInfoVC = ColorInfoView(frame: CGRect(x: 0, y: 0, width: 300, height: 200))
+        let resultColor = mixColors(color1: firstColor, color2: secondColor, weight: 0.5)
+        colorInfoVC.center = view.center
+        colorInfoVC.showAnimate(on: self)
+        colorInfoVC.resultColor = resultColor
+        colorInfoVC.backgroundColor = resultColor
+        colorInfoVC.onClose = {
+            self.navigationController?.navigationBar.isHidden = false
+        }
+        navigationController?.navigationBar.isHidden = true
     }
 }
 
@@ -215,18 +241,6 @@ extension MainViewController: SettingsViewControllerDelegate {
         self.secondColor = secondColor
         setupLabelText()
         setupGradientLayer(firstColor, secondColor)
-    }
-}
-
-extension MainViewController {
-    private func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Ok", style: .default) { _ in
-            self.setupGradientLayer(self.firstColor, self.secondColor)
-        }
-        
-        alert.addAction(okAction)
-        present(alert, animated: true)
     }
 }
 

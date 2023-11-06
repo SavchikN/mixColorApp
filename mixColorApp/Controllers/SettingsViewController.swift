@@ -45,7 +45,6 @@ class SettingsViewController: UIViewController, UIColorPickerViewControllerDeleg
     
     private let firstColorView: UIView = {
         let view = UIView()
-//        view.backgroundColor = .purple
         view.layer.cornerRadius = 20
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.black.cgColor
@@ -55,7 +54,6 @@ class SettingsViewController: UIViewController, UIColorPickerViewControllerDeleg
     
     private let secondColorView: UIView = {
         let view = UIView()
-//        view.backgroundColor = .blue
         view.layer.cornerRadius = 20
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.black.cgColor
@@ -135,10 +133,6 @@ class SettingsViewController: UIViewController, UIColorPickerViewControllerDeleg
         } else if selectedColorView?.backgroundColor == secondColorView.backgroundColor {
             secondColor = secondColorView.backgroundColor
         }
-        
-        print(firstColor?.accessibilityName ?? "1")
-        print(secondColor?.accessibilityName ?? "2")
-//        print(selectedColorView?.backgroundColor?.accessibilityName ?? "huj")
     }
 
     
